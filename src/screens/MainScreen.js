@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
 import Header from "../components/Header";
 import ModeDropdown from "../components/ModeDropdown";
-
+import SplashScreen from 'react-native-splash-screen'
 class MainScreen extends Component {
   state = {
     currentColor: "#FFFFFF",
@@ -16,12 +16,19 @@ class MainScreen extends Component {
     swatchesOnly: false,
     mode: "hex",
   };
+  
+  componentDidMount() {
+    // do stuff while splash screen is shown
+      // After having done stuff (such as async tasks) hide the splash screen
+      SplashScreen.hide();
+  }
   //gets called after you stop dragging the pin
   onColorChangeComplete(value) {
     console.log(this.hex2rgb(value));
     this.setState({ currentColor: value });
-  }
+  } 
   hex2rgb = (hex) => {
+
     const [r, g, b] = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
     return `rgb(${r},${g},${b})`;
   };
